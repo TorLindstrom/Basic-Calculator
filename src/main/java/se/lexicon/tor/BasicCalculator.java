@@ -26,6 +26,7 @@ public class BasicCalculator {
             boolean keepCalculatingLine = true;
 
             Double oldNum = askNum();
+            keepCalculatingLine = checkIfNew(oldNum);
 
             while (keepCalculatingLine) { //keeps mathing on this lineage of operations
 
@@ -52,18 +53,26 @@ public class BasicCalculator {
                         break;
                     default:
                         oldNum = operand(oldNum, input);
-                        if (oldNum == null) {
-                            keepCalculatingLine = false;
-                        }
+                        keepCalculatingLine = checkIfNew(oldNum);
                 }
             }
             keepRunningMenu = askForContinue();
         }
     }
 
+    //checks if null for menu purposes
+
+    static boolean checkIfNew(Double input) {
+        if (input == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     //exit method
 
-    static void exit(){
+    static void exit() {
         writeL("\nByebye\n");
         System.exit(0);
     }
@@ -84,11 +93,18 @@ public class BasicCalculator {
 
     //getting input from user
 
-    static double askNum() {
+    static Double askNum() {
         while (true) {
             write("Write a number, any number: ");
             try {
-                return Double.parseDouble(sc.nextLine());
+                String check = sc.nextLine().toUpperCase();
+                switch (check) {
+                    case "STOP":
+                        exit();
+                    case "NEW":
+                        return null;
+                }
+                return Double.parseDouble(check);
             } catch (Exception e) {
                 writeL("Invalid number, please write a number");
             }
@@ -161,7 +177,7 @@ public class BasicCalculator {
     static Double operand(double oldNum, String input) {
 
         double[] result = new double[0];
-        double newNum = 0;
+        Double newNum = 0d;
 
         switch (input) {
             case "+":
@@ -173,6 +189,9 @@ public class BasicCalculator {
                 break;
             default:
                 newNum = askNum(); //another number, needed for these operations
+                if (newNum == null) {
+                    return null;
+                }
         }
 
         switch (input) {
