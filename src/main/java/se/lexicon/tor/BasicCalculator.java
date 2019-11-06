@@ -76,12 +76,6 @@ public class BasicCalculator {
         System.exit(0);
     }
 
-    //error message method, generic with a twist
-
-    static void error(String text) {
-        writeL("Please enter a valid " + text);
-    }
-
     //writing methods, just less effort, kinda lazy
 
     static void write(String text) {
@@ -210,7 +204,7 @@ public class BasicCalculator {
                 oldNum = pow(oldNum, newNum);
                 break;
             default:
-                error("operator");
+                writeL("Invalid operator");
         }
 
         writeL("Result: " + oldNum);
