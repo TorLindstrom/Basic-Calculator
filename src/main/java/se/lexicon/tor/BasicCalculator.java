@@ -60,7 +60,57 @@ public class BasicCalculator {
         }
     }
 
-    //checks if null for menu purposes
+    //------------------------------------------------------run to do the math--------------------------------------------------------
+
+    static Double operand(double oldNum, String input) {
+
+        double[] result = new double[0];
+        Double newNum = 0d;
+
+        switch (input) {
+            case "+":
+            case "-":
+                result = askForArray();
+                if (result == null) {
+                    return null;
+                }
+                break;
+            default:
+                newNum = askNum(); //another number, needed for these operations
+                if (newNum == null) {
+                    return null;
+                }
+        }
+
+        switch (input) {
+            case "+":
+                oldNum = add(oldNum, result);
+                break;
+            case "-":
+                oldNum = sub(oldNum, result);
+                break;
+            case "/":
+                result = div(oldNum, newNum);
+                oldNum = result[0];
+                if (result[1] == -1) {
+                    writeL("you tried to divide by 0, annulled");
+                }
+                break;
+            case "*":
+                oldNum = mul(oldNum, newNum);
+                break;
+            case "POWER":
+                oldNum = pow(oldNum, newNum);
+                break;
+            default:
+                writeL("Invalid operator");
+        }
+
+        writeL("Result: " + oldNum);
+        return oldNum;
+    }
+
+    //------------------------------------------------------check if "new"--------------------------------------------------------
 
     static boolean checkIfNew(Double input) {
         if (input == null) {
@@ -70,14 +120,14 @@ public class BasicCalculator {
         }
     }
 
-    //exit method
+    //------------------------------------------------------exit method--------------------------------------------------------
 
     static void exit() {
         writeL("\nByebye\n");
         System.exit(0);
     }
 
-    //writing methods, just less effort, kinda lazy
+    //------------------------------------------------------lazy writing--------------------------------------------------------
 
     static void write(String text) {
 
@@ -91,7 +141,7 @@ public class BasicCalculator {
 
     }
 
-    //getting input from user
+    //------------------------------------------------------input methods--------------------------------------------------------
 
     static Double askNum() {
         while (true) {
@@ -151,7 +201,7 @@ public class BasicCalculator {
         }
     }
 
-    //menu lines for restart and exit
+    //------------------------------------------------------menu methods--------------------------------------------------------
 
     static boolean askForContinue() {
 
@@ -164,63 +214,14 @@ public class BasicCalculator {
                     writeL("Oh, that's nice, let's go then!");
                     return true;
                 case "n":
-                    write("Okay then, byebye");
-                    return false;
+                    exit();
                 default:
                     writeL("\nEnter either \"y\" or \"n\"\n");
             }
         }
     }
 
-    //math operands
-
-    static Double operand(double oldNum, String input) {
-
-        double[] result = new double[0];
-        Double newNum = 0d;
-
-        switch (input) {
-            case "+":
-            case "-":
-                result = askForArray();
-                if (result == null) {
-                    return null;
-                }
-                break;
-            default:
-                newNum = askNum(); //another number, needed for these operations
-                if (newNum == null) {
-                    return null;
-                }
-        }
-
-        switch (input) {
-            case "+":
-                oldNum = add(oldNum, result);
-                break;
-            case "-":
-                oldNum = sub(oldNum, result);
-                break;
-            case "/":
-                result = div(oldNum, newNum);
-                oldNum = result[0];
-                if (result[1] == -1) {
-                    writeL("you tried to divide by 0, annulled");
-                }
-                break;
-            case "*":
-                oldNum = mul(oldNum, newNum);
-                break;
-            case "POWER":
-                oldNum = pow(oldNum, newNum);
-                break;
-            default:
-                writeL("Invalid operator");
-        }
-
-        writeL("Result: " + oldNum);
-        return oldNum;
-    }
+    //------------------------------------------------------math operands--------------------------------------------------------
 
     static double add(double num1, double num2) {
         return num1 + num2;
