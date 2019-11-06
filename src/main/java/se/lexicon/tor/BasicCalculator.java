@@ -6,7 +6,7 @@ import java.lang.Math;
 
 public class BasicCalculator {
 
-    static Scanner sc;
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         mathLoop();
@@ -14,9 +14,8 @@ public class BasicCalculator {
 
     //Mathing loop
     public static void mathLoop() {
-        sc = new Scanner(System.in);
 
-        writeL("\nOpening Tor.calc ver. 1.1\n"); //println, talks to user
+        writeL("\nOpening Tor.calc ver. 1.2\n"); //println, talks to user
 
         boolean keepRunningMenu = true; //flag for keeping the program running
 
@@ -25,13 +24,6 @@ public class BasicCalculator {
             writeL("Available operators are: + - / * sqrt (squareroot of current result) power (power of)\nWrite \"New\" to view the result and finish\nOr you can exit by writing \"Stop\"\n");
 
             boolean keepCalculatingLine = true;
-
-            /*
-            asks for the first number from the user, reused again later
-
-            this is so that you don't start calculating on an operand, now you get that first number to calculate with
-            only done at startup, the rest you calculate on the sum of this seed
-             */
 
             Double oldNum = askNum();
 
